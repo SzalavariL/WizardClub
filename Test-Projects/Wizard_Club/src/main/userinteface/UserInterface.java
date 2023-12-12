@@ -7,5 +7,5 @@ public interface UserInterface {
 
     void end();
 
-    void invalidCommand();
+    String invalidCommand();
 }

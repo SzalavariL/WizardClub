@@ -21,7 +21,7 @@ public class ConsoleUserInterface implements UserInterface{
     }
 
     @Override
-    public void invalidCommand() {
-        System.out.println("Unknown spell. Please, spell it slower. Thank you!");
+    public String invalidCommand() {
+        return "Unknown spell. Please, spell it slower. Thank you!";
     }
 }

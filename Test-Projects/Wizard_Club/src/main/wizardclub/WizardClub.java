@@ -3,17 +3,18 @@ package main.wizardclub;
 import main.characters.Wizard;
 import main.userinteface.UserInterface;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class WizardClub {
     private List<Wizard> wizardList;
+    Map<Wizard, Wizard> partyPair;
     private UserInterface ui;
     private boolean isOpen;
 
     public WizardClub(UserInterface ui) {
         this.ui = ui;
         wizardList = new ArrayList<>();
+        partyPair = new HashMap<>();
         isOpen = true;
     }
 
@@ -23,15 +24,16 @@ public class WizardClub {
         }
     }
 
-    private void nightCharm(String spell) {
+    protected void nightCharm(String spell) {
         String[] spellSplits = spellSplitter(spell);
         switch (spellSplits[0]) {
 
-            case "invite wizard":
+            case "invite":
                 inviteWizard(spellSplits);
                 break;
 
             case "open":
+                partyTime();
                 break;
 
             case "status":
@@ -42,7 +44,26 @@ public class WizardClub {
                 break;
 
             default:
-                ui.invalidCommand();
+                System.out.println(ui.invalidCommand());
+        }
+    }
+
+    protected void partyTime() {
+        makePair();
+        goCrazy();
+    }
+
+    protected void goCrazy() {
+
+    }
+
+    protected void makePair() {
+        Collections.shuffle(wizardList);
+        if(!wizardList.isEmpty()) {
+            int partyNumber = wizardList.size() - wizardList.size() % 2;
+            for (int i = 0; i < partyNumber; i+=2) {
+                partyPair.put(wizardList.get(i), wizardList.get(i+1));
+            }
         }
     }
 
@@ -74,6 +95,14 @@ public class WizardClub {
 
     public void setWizardList(Wizard wizard) {
         this.wizardList.add(wizard);
+    }
+
+    public Map<Wizard, Wizard> getPartyPair() {
+        return partyPair;
+    }
+
+    public void setPartyPair(Map<Wizard, Wizard> partyPair) {
+        this.partyPair = partyPair;
     }
 
     public boolean isOpen() {

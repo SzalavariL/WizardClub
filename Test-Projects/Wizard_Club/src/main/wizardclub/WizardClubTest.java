@@ -36,8 +36,33 @@ class WizardClubTest {
 
     @Test
     void closeTheClub() {
-        String[] newWizardData = {"quit"};
-        club.closeTheClub();
+        String testSpell = "quit";
+        club.nightCharm(testSpell);
         assertFalse(club.isOpen());
+    }
+
+    @Test
+    void nightCharm_inviteWizard() {
+        String testSpell = "invite wizard - Bob 96 14 green good";
+        club.nightCharm(testSpell);
+        assertEquals(2, club.getWizardList().size());
+    }
+
+    @Test
+    void invalidCommand() {
+        String testSpell = "invitewizard - Bob 96 14 green good";
+        club.nightCharm(testSpell);
+        assertTrue(club.isOpen());
+
+    }
+
+    @Test
+    void makePair_11_Wizards_5_pairs() {
+        for (int i = 0; i < 10; i++) {
+            Wizard filemon = new Wizard("Filemon", 80, 10, "white", "good");
+            club.setWizardList(filemon);
+        }
+        club.makePair();
+        assertEquals(5, club.getPartyPair().size());
     }
 }

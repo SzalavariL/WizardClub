@@ -9,7 +9,7 @@ public class Wizard extends Character{
     private String favoriteColor;
     private String moral;
     private boolean isSingle;
-    private Map<Wizard, String> contactList;
+    private Map<String, Wizard> contactList;
     private int numberOfProtectionCharm;
 
 
@@ -46,12 +46,12 @@ public class Wizard extends Character{
         isSingle = single;
     }
 
-    public Map<Wizard, String> getContactList() {
+    public Map<String, Wizard> getContactList() {
         return contactList;
     }
 
-    public void setContactList(Map<Wizard, String> contactList) {
-        this.contactList = contactList;
+    public void setContactList(String statusOfPartner, Wizard wizard) {
+        this.contactList.put(statusOfPartner, wizard);
     }
 
     public int getNumberOfProtectionCharm() {
