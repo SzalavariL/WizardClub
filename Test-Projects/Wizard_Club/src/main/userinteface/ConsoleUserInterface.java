@@ -6,7 +6,7 @@ public class ConsoleUserInterface implements UserInterface{
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public String getCommand() {
+    public String spell() {
         return scanner.nextLine();
     }
 

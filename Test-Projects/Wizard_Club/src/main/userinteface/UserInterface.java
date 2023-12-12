@@ -1,7 +1,7 @@
 package main.userinteface;
 
 public interface UserInterface {
-    String getCommand();
+    String spell();
 
     void printStatus(String message);
 
