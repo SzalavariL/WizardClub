@@ -53,22 +53,57 @@ public class WizardClub {
         goCrazy();
     }
 
-    protected void goCrazy() {
-
-    }
-
     protected void makePair() {
         Collections.shuffle(wizardList);
-        if(!wizardList.isEmpty()) {
+        if (!wizardList.isEmpty()) {
             int partyNumber = wizardList.size() - wizardList.size() % 2;
-            for (int i = 0; i < partyNumber; i+=2) {
-                partyPair.put(wizardList.get(i), wizardList.get(i+1));
+            for (int i = 0; i < partyNumber; i += 2) {
+                partyPair.put(wizardList.get(i), wizardList.get(i + 1));
             }
         }
     }
 
+    protected void goCrazy() {
+        for (Map.Entry<Wizard, Wizard> wizardPair : partyPair.entrySet()) {
+            Wizard left = wizardPair.getKey();
+            Wizard right = wizardPair.getValue();
+
+            if(!left.getMoral().equals(right.getMoral())) {
+                checkFight(left, right);
+            } else if(left.getFavoriteColor().equals(right.getFavoriteColor())) {
+                checkLovers(left, right);
+            } else {
+                checkFriends(left, right);
+            }
+        }
+    }
+
+    protected void checkFight(Wizard left, Wizard right) {
+        return;
+    }
+
+    protected void checkLovers(Wizard left, Wizard right) {
+        return;
+    }
+
+    protected void checkFriends(Wizard left, Wizard right) {
+        if(!(left.hasFriend() && right.hasFriend()) && Math.abs(left.getLevel() - right.getLevel()) < 10) {
+            left.setHasFriend(true);
+            left.setContactList("friend", right);
+            left.setLevel(left.getLevel() - 1);
+            right.setHasFriend(true);
+            right.setContactList("friend", left);
+            right.setLevel(right.getLevel() - 1);
+
+            System.out.println(left.getName() + " and " + right.getName() + " became friends.\n" +
+                    "They made a crazy night, drunk a lot and lost 1 level.\n" +
+                    "**********");
+
+        }
+    }
+
     protected void closeTheClub() {
-        System.out.println("Thank you for your visit in the Wizard Club.");
+        System.out.println("Thank you for visiting in the Wizard Club.");
         System.out.println("See you next time!");
         setOpen(false);
     }
